@@ -1883,13 +1883,25 @@ class Component extends DCLogic {
       lbClose: () => this.lbGo(null),
       lbPrev: () => this.lbGo(-1),
       lbNext: () => this.lbGo(1),
-      lbTs: (e) => { const t0 = e.touches && e.touches[0]; this.tx = t0 ? t0.clientX : null; },
+      lbTs: (e) => {
+        const n = e.touches ? e.touches.length : 1;
+        if (n > 1) { this.pinch = true; this.tx = null; return; }
+        if (n === 1 && !this.pinch) { const t0 = e.touches[0]; this.tx = t0.clientX; this.ty = t0.clientY; }
+      },
       lbTe: (e) => {
+        const left = e.touches ? e.touches.length : 0;
+        if (left > 0) { this.pinch = true; this.tx = null; return; }
+        const wasPinch = !!this.pinch;
+        this.pinch = false;
         const t1 = e.changedTouches && e.changedTouches[0];
-        if (this.tx == null || !t1) return;
-        const dx = t1.clientX - this.tx;
+        const x0 = this.tx, y0 = this.ty;
         this.tx = null;
-        if (Math.abs(dx) > 50) this.lbGo(dx < 0 ? 1 : -1);
+        if (wasPinch || x0 == null || !t1) return;
+        const vv = window.visualViewport;
+        if (vv && vv.scale > 1.02) return;
+        const dx = t1.clientX - x0;
+        const dy = t1.clientY - (y0 == null ? t1.clientY : y0);
+        if (Math.abs(dx) > 80 && Math.abs(dx) > Math.abs(dy) * 1.5) this.lbGo(dx < 0 ? 1 : -1);
       },
       t, nav, stats, strengths, programs, services, steps, voices, events, faqs, accent, cats, tiles, catEdits,
       canEdit: !!this.state.canEdit,
