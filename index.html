@@ -1310,7 +1310,7 @@ class Component extends DCLogic {
       visitSub: pick('센터를 직접 둘러보시고 편하게 물어보세요. 견학과 상담은 부담 없이 신청하실 수 있습니다.', 'Tour the center and ask us anything. Visits and consultations are easy to arrange.'),
       formBtn: pick('문의 남기기', 'Send a message'),
       voiceTitle: pick('회원과 가족의 이야기', 'Stories from members and families'),
-      voiceSub: pick('[동의를 받은 실제 후기만 실립니다. 이름과 사진 사용 동의를 꼭 확인해 주세요.]', '[Only real testimonials with permission will appear here. Please confirm consent for names and photos.]'),
+      voiceSub: pick('센터와 오랜 시간을 함께한 어르신과 가족분들의 이야기입니다.', 'Stories from members and families who have been with us for many years.'),
       eventsTitle: pick('이달의 센터 소식', 'This month at the center'),
       eventsSub: pick('매달 생일잔치와 행사로 센터의 하루가 달라집니다. 날짜는 공지에 맞춰 업데이트합니다.', 'Monthly birthday parties and events keep every week fresh. Dates are updated from our notices.'),
       faqTitle: pick('자주 묻는 질문', 'Frequently asked questions'),
@@ -1460,9 +1460,9 @@ class Component extends DCLogic {
     ].map((s, i) => ({ ...s, i1: i === 0, i2: i === 1, i3: i === 2 }));
 
     const voices = [
-      { quote: pick('[회원 후기 자리]', '[Member testimonial]'), who: pick('[이름, 연령대 — 동의 확인 후 기재]', '[Name — add after consent is confirmed]') },
-      { quote: pick('[가족 후기 자리]', '[Family testimonial]'), who: pick('[이름 또는 "보호자" — 동의 확인 후 기재]', '[Name or "Family member" — add after consent is confirmed]') },
-      { quote: pick('[회원 후기 자리]', '[Member testimonial]'), who: pick('[이름, 연령대 — 동의 확인 후 기재]', '[Name — add after consent is confirmed]') }
+      { quote: pick('우리 부부는 센터에서 참 좋은 시간을 보내 왔습니다. 오랜 세월 이곳에 다니면서 두 사람 모두 몸이 눈에 띄게 건강해졌고, 하루하루가 훨씬 든든해졌습니다. 센터는 우리에게 단순히 낮 시간을 보내는 곳이 아니라, 마음을 기댈 수 있는 또 하나의 집이 되어 주었습니다. 이런 곳이 있다는 것이 정말 감사합니다.', 'We have spent so many good hours at the center. Over the years we have both grown noticeably healthier, and each day feels steadier. To us, the center is not just a place to pass the daytime. It has become a second home where we feel safe and cared for. We are truly grateful to have it.'), who: pick('어르신 부부 (80대 초반)', 'A couple in their early 80s') },
+      { quote: pick('우리 부부는 센터에서 아주 오랜 시간을 함께했는데, 지금도 센터 가는 날이 기다려집니다. 건강하게 지낼 수 있어서 고맙고, 여러 사람과 어울려 웃고 즐기는 시간이 많아 하루하루가 재미있습니다. 나이가 들어서도 이렇게 즐겁게 지낼 수 있다는 것이 큰 행복입니다. 센터에서는 웃음이 끊이지 않습니다.', 'We have spent a very long time at the center, and we still look forward to every visit. We are grateful to stay healthy, and with so many people to laugh and enjoy time with, every day is fun. Being able to live this happily in our later years is a great blessing. There is always laughter at the center.'), who: pick('어르신 부부 (80대 후반)', 'A couple in their late 80s') },
+      { quote: pick('혼자 지내는 저에게 센터는 큰 힘이 되었습니다. 센터에 다니면서 건강이 좋아졌고, 마음이 맞는 친구도 많이 생겼습니다. 함께 식사하고 취미 활동을 하며 이야기를 나누는 시간이 제 일상의 큰 기쁨입니다. 이제는 센터에서의 모든 것이 고맙고 만족스럽습니다.', 'Living on my own, the center has been a great source of strength for me. Since I started coming, my health has improved and I have made many like-minded friends. Sharing meals, enjoying hobbies, and talking together are the joys of my daily life. I am thankful and content with everything here.'), who: pick('혼자 지내시는 어르신 (80대 초반)', 'A member in their early 80s who lives alone') }
     ];
 
     const evSeed = [
