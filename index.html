@@ -890,9 +890,14 @@ a.navlink:hover::after{transform:scaleX(1)}
           </div>
           <div class="reveal lift" style="background:#ffffff;border:2px solid #d3e2f7;border-top:6px solid #2563c9;border-radius:28px;padding:32px;box-shadow:0 10px 26px rgba(37,99,201,0.08)">
             <div style="font-size:15px;font-weight:700;color:{{accent}};margin-bottom:12px">{{t.phoneLabel}}</div>
+            <div style="font-size:14px;color:#6e6e73;margin-bottom:4px">{{t.centerLbl}}</div>
             <a href="{{t.telHref}}" style="font-size:28px;font-weight:700;letter-spacing:-0.01em">{{t.phoneDisp}}</a>
-            <div style="margin-top:8px;font-size:15px;color:#6e6e73">{{t.faxDisp}}</div>
-            <a href="{{t.mailto}}" style="display:block;margin-top:16px;font-size:17px;color:{{accent}};font-weight:500">{{t.emailDisp}}</a>
+            <a href="{{t.mailto}}" style="display:block;margin-top:8px;font-size:17px;color:{{accent}};font-weight:500">{{t.emailDisp}}</a>
+            <div style="margin-top:22px;padding-top:18px;border-top:1px solid #e3e8f0">
+              <div style="font-size:14px;color:#6e6e73;margin-bottom:4px">{{t.homecareLbl}}</div>
+              <a href="{{t.tel2Href}}" style="font-size:28px;font-weight:700;letter-spacing:-0.01em">{{t.phone2Disp}}</a>
+              <a href="{{t.mailto2}}" style="display:block;margin-top:8px;font-size:17px;color:{{accent}};font-weight:500">{{t.email2Disp}}</a>
+            </div>
           </div>
           <div class="reveal lift" style="background:#ffffff;border:2px solid #cdebdc;border-top:6px solid #1f9d6b;border-radius:28px;padding:32px;box-shadow:0 10px 26px rgba(37,99,201,0.08)">
             <div style="font-size:15px;font-weight:700;color:{{accent}};margin-bottom:12px">{{t.addrLabel}}</div>
@@ -931,7 +936,7 @@ a.navlink:hover::after{transform:scaleX(1)}
     <div style="max-width:1120px;margin:0 auto;padding:56px 24px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:36px;font-size:15px">
       <div>
         <div style="font-size:18px;font-weight:700;color:#ffffff;margin-bottom:12px">{{t.brand}}</div>
-        <div style="line-height:1.7">{{t.addr1}}<br>{{t.addr2}}<br><a href="{{t.telHref}}" style="color:#ffffff;font-weight:700">{{t.phoneDisp}}</a> · {{t.faxDisp}}<br><a href="{{t.mailto}}">{{t.emailDisp}}</a></div>
+        <div style="line-height:1.7">{{t.addr1}}<br>{{t.addr2}}<br>{{t.centerLbl}} <a href="{{t.telHref}}" style="color:#ffffff;font-weight:700">{{t.phoneDisp}}</a><br><a href="{{t.mailto}}">{{t.emailDisp}}</a><br>{{t.homecareLbl}} <a href="{{t.tel2Href}}" style="color:#ffffff;font-weight:700">{{t.phone2Disp}}</a><br><a href="{{t.mailto2}}">{{t.email2Disp}}</a></div>
       </div>
       <div>
         <div style="font-size:15px;font-weight:700;color:#ffffff;margin-bottom:12px">{{t.footLinks}}</div>
@@ -1279,7 +1284,7 @@ class Component extends DCLogic {
     const t = {
       topAddr: '6000 Live Oak Pkwy, Suite 103, Norcross, GA 30093',
       topPhone: '(770) 447-4898',
-      topHours: pick('월~금 7:30am – 1:45pm', 'Mon–Fri 7:30am – 1:45pm'),
+      topHours: pick('월~금 9:00am – 2:00pm', 'Mon–Fri 9:00am – 2:00pm'),
       brand: pick('행복건강복지센터', 'Atlanta Adult Day Healthcare'),
       navCta: pick('견학 신청', 'Book a visit'),
       eyebrow: pick('아틀란타 행복건강복지센터', 'Atlanta Adult Day Healthcare Center'),
@@ -1335,7 +1340,7 @@ class Component extends DCLogic {
       mapHint: pick('누르면 핀이 꽂힌 지도가 열립니다', 'Opens a map with the pin on the center'),
       exteriorAlt: pick('행복건강복지센터 건물 외관', 'Exterior of Atlanta Adult Day Healthcare Center'),
       hoursLabel: pick('운영 시간', 'Hours'),
-      hoursBody: pick('센터 운영  월~금  7:30am – 1:45pm\n사무실 상담  월~금  7:30am – 3:30pm', 'Center  Mon–Fri  7:30am – 1:45pm\nOffice  Mon–Fri  7:30am – 3:30pm'),
+      hoursBody: pick('센터 운영  월~금  9:00am – 2:00pm\n사무실 상담  월~금  9:00am – 2:00pm', 'Center  Mon–Fri  9:00am – 2:00pm\nOffice  Mon–Fri  9:00am – 2:00pm'),
       formTitle: pick('문의·견학 신청', 'Inquiry or visit request'),
       fName: pick('이름', 'Name'),
       fTel: pick('전화번호', 'Phone'),
@@ -1358,10 +1363,12 @@ class Component extends DCLogic {
     const baseMap = {};
     textKeys.forEach((x) => { baseMap[x[0]] = baseOf(x[0]); });
     Object.keys(t).forEach((k) => { const v = ST[k + '_' + lg]; if (v !== undefined && v !== '') t[k] = v; });
-    const C = { phone: '(770) 447-4898', fax: '(770) 447-4899', email: 'info@firstonegroup.org', addr1: '6000 Live Oak Pkwy, Suite 103', addr2: 'Norcross, GA 30093', ...(S.contact || {}) };
+    const C = { phone: '(770) 447-4898', fax: '', email: 'info@adhcatlanta.com', phone2: '(770) 447-4872', email2: 'info@firstonehomecare.org', addr1: '6000 Live Oak Pkwy, Suite 103', addr2: 'Norcross, GA 30093', ...(S.contact || {}) };
     const digits = String(C.phone).replace(/\D/g, '').slice(-10);
     const qAddr = encodeURIComponent(C.addr1 + ' ' + C.addr2);
-    t.phoneDisp = C.phone; t.faxDisp = 'Fax ' + C.fax; t.emailDisp = C.email; t.mailto = 'mailto:' + C.email;
+    t.phoneDisp = C.phone; t.faxDisp = C.fax ? 'Fax ' + C.fax : ''; t.emailDisp = C.email; t.mailto = 'mailto:' + C.email;
+    t.phone2Disp = C.phone2; t.tel2Href = 'tel:+1' + String(C.phone2).replace(/\D/g, '').slice(-10); t.email2Disp = C.email2; t.mailto2 = 'mailto:' + C.email2;
+    t.centerLbl = pick('센터', 'Center'); t.homecareLbl = pick('홈케어', 'Homecare');
     t.addr1 = C.addr1; t.addr2 = C.addr2; t.telHref = 'tel:+1' + digits;
     t.mapSearch = 'https://www.google.com/maps/search/?api=1&query=' + qAddr;
     t.mapDir = 'https://www.google.com/maps/dir/?api=1&destination=' + qAddr;
@@ -1385,7 +1392,7 @@ class Component extends DCLogic {
       { big: '2009', label: pick('설립', 'Founded') },
       { big: pick('최초', 'First'), label: pick('조지아주 메디케이드 인가 한인 시니어 데이케어', 'Korean-American senior day care licensed for Georgia Medicaid') },
       { big: '20', label: pick('가지 활동 프로그램', 'activity programs') },
-      { big: pick('월~금', 'Mon–Fri'), label: pick('7:30am – 1:45pm 운영', 'open 7:30am – 1:45pm') }
+      { big: pick('월~금', 'Mon–Fri'), label: pick('9:00am – 2:00pm 운영', 'open 9:00am – 2:00pm') }
     ];
 
     const strengths = [
@@ -1407,19 +1414,19 @@ class Component extends DCLogic {
     const depDefs = [
       { id: 'exercise', cat: 'olympic', name: pick('운동·건강', 'Exercise & health'),
         desc: pick('전문 강사와 함께 몸을 움직이는 시간입니다. 개인의 건강 상태와 능력에 맞춰 무리 없이 참여하실 수 있습니다.', 'Movement with professional instructors, paced to each member\'s health and ability.'),
-        items: pick(['건강박수', '줌바·요가·근력운동', '탁구', '피클볼', '건강세미나'], ['Health clapping', 'Zumba, yoga and strength', 'Table tennis', 'Pickleball', 'Health seminars']),
+        items: pick(['건강박수', '줌바·요가·근력운동', '라인댄스', '탁구', '당구', '피클볼', '건강세미나'], ['Health clapping', 'Zumba, yoga and strength', 'Line dancing', 'Table tennis', 'Billiards', 'Pickleball', 'Health seminars']),
         photos: ['0e63c65f996a47c3dd958c5ad33150bf', 'bdb5d530557e604193a6d879124d66bd', '4c45a0e29a47c3c43e636fff442db30c'] },
       { id: 'mind', cat: 'program', name: pick('두뇌·게임', 'Mind & games'),
         desc: pick('바둑·장기, 빙고와 게임으로 머리와 마음을 함께 쓰는 시간입니다. 컴퓨터반과 영어반도 있습니다.', 'Baduk, Janggi, bingo and games keep the mind active, along with computer and English classes.'),
-        items: pick(['빙고·게임', '바둑·장기', '컴퓨터반', '영어반'], ['Bingo and games', 'Baduk and Janggi', 'Computer class', 'English class']),
+        items: pick(['빙고·게임', '바둑·장기', '그날의 뉴스', '컴퓨터반', '영어반'], ['Bingo and games', 'Baduk and Janggi', "Today's news", 'Computer class', 'English class']),
         photos: ['9df2886bfb81a3b1d74117de693aef8f', '4eb9db1269fec9f604def8749ebad822', 'df5340f5eecc638746e336cca1fd02ac'] },
       { id: 'music', cat: 'program', name: pick('음악·노래', 'Music & singing'),
         desc: pick('노래교실과 악기반, 찬양반, 민요반에서 함께 노래하고 연주하며 마음을 나눕니다.', 'Singing, instruments, hymns and Korean folk songs, shared together.'),
-        items: pick(['노래교실', '악기반', '찬양반', '민요반'], ['Singing class', 'Instruments', 'Hymn singing', 'Korean folk songs']),
+        items: pick(['노래교실', '악기반', '난타방', '찬양반', '민요반'], ['Singing class', 'Instruments', 'Nanta drumming', 'Hymn singing', 'Korean folk songs']),
         photos: ['324f26e615e104f116f5448fe850b4ec', 'd0126c59a0250ebb79498bcc7ed9338b', '5e8bb1abed8d1ef7982a2b5fe87c2d0f'] },
       { id: 'art', cat: 'program', name: pick('미술·공예', 'Art & crafts'),
         desc: pick('손으로 만들고 그리는 즐거움, 그리고 스마트폰으로 사진을 찍고 배우는 시간입니다.', 'The joy of making and drawing by hand, plus learning to take photos with a smartphone.'),
-        items: pick(['미술반', '공예반', '종이접기', '스마트폰 사진교실', '영화관람'], ['Art class', 'Crafts', 'Origami', 'Smartphone photography class', 'Movies']),
+        items: pick(['미술반', '공예반', '종이접기', '시와 창작반', '스마트폰 사진교실', '영화관람'], ['Art class', 'Crafts', 'Origami', 'Poetry and creative writing', 'Smartphone photography class', 'Movies']),
         photos: [] },
       { id: 'events', cat: 'event', name: pick('행사·소풍', 'Events & picnics'),
         desc: pick('매달 생일잔치와 소풍, 문화행사로 일상에 즐거움을 더합니다.', 'Monthly birthday parties, picnics and cultural events brighten the week.'),
@@ -1437,8 +1444,8 @@ class Component extends DCLogic {
       ring: d.id === curDep.id ? '3px solid #a9cdf5' : 'none',
       pick: () => this.setState({ dep: d.id })
     }));
-    const progEn = ['Health clapping', 'Zumba, yoga and strength', 'Bingo and games', 'Art class', 'Smartphone photography class', 'Crafts', 'Singing class', 'Instruments', 'Table tennis', 'Pickleball', 'Hymn singing', 'Korean folk songs', 'English class', 'Computer class', 'Baduk and Janggi', 'Origami', 'Health seminars', 'Movies'];
-    const progKo = ['건강박수', '줌바·요가·근력운동', '빙고·게임', '미술반', '스마트폰 사진교실', '공예반', '노래교실', '악기반', '탁구', '피클볼', '찬양반', '민요반', '영어반', '컴퓨터반', '바둑·장기', '종이접기', '건강세미나', '영화관람'];
+    const progEn = ['Health clapping', 'Zumba, yoga and strength', 'Bingo and games', 'Art class', 'Smartphone photography class', 'Crafts', 'Singing class', 'Instruments', 'Table tennis', 'Pickleball', 'Hymn singing', 'Korean folk songs', 'English class', 'Computer class', 'Baduk and Janggi', 'Origami', 'Health seminars', 'Movies', 'Line dancing', 'Billiards', 'Nanta drumming', 'Poetry and creative writing', "Today's news"];
+    const progKo = ['건강박수', '줌바·요가·근력운동', '빙고·게임', '미술반', '스마트폰 사진교실', '공예반', '노래교실', '악기반', '탁구', '피클볼', '찬양반', '민요반', '영어반', '컴퓨터반', '바둑·장기', '종이접기', '건강세미나', '영화관람', '라인댄스', '당구', '난타방', '시와 창작반', '그날의 뉴스'];
     const programsBase = en ? progEn : progKo;
     const progOv = S.programs && S.programs[lg];
     const programs = (progOv && progOv.length ? progOv : programsBase).map((name) => ({ name }));
@@ -1477,7 +1484,7 @@ class Component extends DCLogic {
     const faqSource = [
       { q: pick('메디케이드가 없어도 이용할 수 있나요?', 'Can I join without Medicaid?'), a: pick('메디케이드와 SSI 수혜자는 본인 부담금 없이 정부 지원으로 이용하십니다. 그 외의 경우 가능한 혜택이 있는지 신속하고 정확하게 알아봐 드리니 먼저 문의해 주세요.', 'Medicaid and SSI recipients attend with no out-of-pocket cost. For everyone else, we will check what benefits may be available, so please contact us first.') },
       { q: pick('차량은 어디까지 오나요?', 'How far does the van service go?'), a: pick('Norcross를 중심으로 한인이 사는 지역이면 어디든 운행합니다. 거주지 주소를 알려 주시면 확인해 드립니다.', 'We serve Norcross and Korean-American neighborhoods around it. Tell us your address and we will confirm.') },
-      { q: pick('하루 운영 시간은 어떻게 되나요?', 'What are the daily hours?'), a: pick('센터는 월~금 7:30am – 1:45pm 운영하고, 사무실 상담은 월~금 7:30am – 3:30pm에 가능합니다.', 'The center is open Mon–Fri 7:30am – 1:45pm. The office takes consultations Mon–Fri 7:30am – 3:30pm.') },
+      { q: pick('하루 운영 시간은 어떻게 되나요?', 'What are the daily hours?'), a: pick('센터는 월~금 9:00am – 2:00pm 운영하고, 사무실 상담도 같은 시간에 가능합니다.', 'The center is open Mon–Fri 9:00am – 2:00pm. The office takes consultations during the same hours.') },
       { q: pick('식사는 어떻게 제공되나요?', 'What about meals?'), a: pick('아침, 간식, 점심을 제공합니다. 주간 식단표는 매주 센터 메인홀에 게시합니다.', 'We provide breakfast, a snack and lunch. The weekly menu is posted in the main hall every week.') },
       { q: pick('서류 작성도 도와주시나요?', 'Do you help with paperwork?'), a: pick('푸드스탬프 신청과 연장, 아파트 연장, 전기·난방 크레딧, 은행·병원 서류 등을 통역하고 작성해 드립니다.', 'Yes. We interpret and help complete forms for food stamps, apartment renewals, utility credits, bank and hospital paperwork.') },
       { q: pick('데이케어와 홈케어는 무엇이 다른가요?', 'What is the difference between day care and home care?'), a: pick('데이케어는 센터에 오셔서 프로그램과 식사를 함께하는 서비스이고, 홈케어는 훈련받은 간병인이 댁으로 찾아가는 서비스입니다.', 'Day care is at the center with programs and meals. Home care is delivered at your home by trained caregivers.') }
