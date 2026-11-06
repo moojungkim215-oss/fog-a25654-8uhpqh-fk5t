@@ -575,6 +575,7 @@ a.navlink:hover::after{transform:scaleX(1)}
         <h2 style="margin:0 0 20px;font-size:clamp(32px,5vw,48px);line-height:1.15;font-weight:900;letter-spacing:-0.02em">{{t.homeTitle}}</h2>
         <p style="margin:0 0 24px;font-size:19px;color:#424245">{{t.homeBody}}</p>
         <a href="#visit" class="lift" style="display:inline-block;border:2px solid {{accent}};color:{{accent}};font-size:17px;font-weight:700;padding:12px 26px;border-radius:999px">{{t.homeBtn}}</a>
+        <a href="{{t.hcUrl}}" target="_blank" rel="noopener" class="lift cta" style="display:inline-block;margin-left:12px;margin-top:8px;color:#ffffff;font-size:17px;font-weight:700;padding:14px 26px;border-radius:999px">{{t.hcLinkBtn}} ↗</a>
       </div>
       <div style="position:relative;flex:1 1 300px;min-width:0;display:flex;justify-content:center">
         <img src="{{t.imgHome}}" alt="{{t.homeAlt}}" loading="lazy" style="display:block;width:100%;max-width:340px;aspect-ratio:1372/753;object-fit:cover;border-radius:24px;box-shadow:0 16px 38px rgba(37,99,201,0.16)">
@@ -936,7 +937,7 @@ a.navlink:hover::after{transform:scaleX(1)}
     <div style="max-width:1120px;margin:0 auto;padding:56px 24px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:36px;font-size:15px">
       <div>
         <div style="font-size:18px;font-weight:700;color:#ffffff;margin-bottom:12px">{{t.brand}}</div>
-        <div style="line-height:1.7">{{t.addr1}}<br>{{t.addr2}}<br>{{t.centerLbl}} <a href="{{t.telHref}}" style="color:#ffffff;font-weight:700">{{t.phoneDisp}}</a><br><a href="{{t.mailto}}">{{t.emailDisp}}</a><br>{{t.homecareLbl}} <a href="{{t.tel2Href}}" style="color:#ffffff;font-weight:700">{{t.phone2Disp}}</a><br><a href="{{t.mailto2}}">{{t.email2Disp}}</a></div>
+        <div style="line-height:1.7">{{t.addr1}}<br>{{t.addr2}}<br>{{t.centerLbl}} <a href="{{t.telHref}}" style="color:#ffffff;font-weight:700">{{t.phoneDisp}}</a><br><a href="{{t.mailto}}">{{t.emailDisp}}</a><br>{{t.homecareLbl}} <a href="{{t.tel2Href}}" style="color:#ffffff;font-weight:700">{{t.phone2Disp}}</a><br><a href="{{t.mailto2}}">{{t.email2Disp}}</a><br><a href="{{t.hcUrl}}" target="_blank" rel="noopener" style="color:#ffffff;font-weight:700">{{t.hcLinkBtn}} ↗</a></div>
       </div>
       <div>
         <div style="font-size:15px;font-weight:700;color:#ffffff;margin-bottom:12px">{{t.footLinks}}</div>
@@ -1363,11 +1364,12 @@ class Component extends DCLogic {
     const baseMap = {};
     textKeys.forEach((x) => { baseMap[x[0]] = baseOf(x[0]); });
     Object.keys(t).forEach((k) => { const v = ST[k + '_' + lg]; if (v !== undefined && v !== '') t[k] = v; });
-    const C = { phone: '(770) 447-4898', fax: '', email: 'info@adhcatlanta.com', phone2: '(770) 447-4872', email2: 'info@firstonehomecare.org', addr1: '6000 Live Oak Pkwy, Suite 103', addr2: 'Norcross, GA 30093', ...(S.contact || {}) };
+    const C = { phone: '(770) 447-4898', fax: '', email: 'info@adhcatlanta.com', phone2: '(470) 436-4855', email2: 'info@firstonehomecare.org', addr1: '6000 Live Oak Pkwy, Suite 103', addr2: 'Norcross, GA 30093', ...(S.contact || {}) };
     const digits = String(C.phone).replace(/\D/g, '').slice(-10);
     const qAddr = encodeURIComponent(C.addr1 + ' ' + C.addr2);
     t.phoneDisp = C.phone; t.faxDisp = C.fax ? 'Fax ' + C.fax : ''; t.emailDisp = C.email; t.mailto = 'mailto:' + C.email;
     t.phone2Disp = C.phone2; t.tel2Href = 'tel:+1' + String(C.phone2).replace(/\D/g, '').slice(-10); t.email2Disp = C.email2; t.mailto2 = 'mailto:' + C.email2;
+    t.hcUrl = 'https://www.firstonehomecare.com/%ed%99%88%ec%bc%80%ec%96%b4'; t.hcLinkBtn = pick('홈케어 사이트 바로가기 (English)', 'Visit our Home Care website (English)');
     t.centerLbl = pick('센터', 'Center'); t.homecareLbl = pick('홈케어', 'Homecare');
     t.addr1 = C.addr1; t.addr2 = C.addr2; t.telHref = 'tel:+1' + digits;
     t.mapSearch = 'https://www.google.com/maps/search/?api=1&query=' + qAddr;
