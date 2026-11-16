@@ -927,10 +927,14 @@ a.navlink:hover::after{transform:scaleX(1)}
         </div>
         <div style="flex:1 1 380px;min-width:0;background:#ffffff;border:2px solid #d3e2f7;border-top:6px solid #2563c9;box-shadow:0 10px 26px rgba(37,99,201,0.08);border-radius:28px;padding:32px;display:flex;flex-direction:column;gap:16px">
           <div style="font-size:21px;font-weight:700">{{t.formTitle}}</div>
-          <label style="display:flex;flex-direction:column;gap:6px;font-size:15px;font-weight:500">{{t.fName}}<input type="text" style="font-size:17px;padding:12px 14px;border:1px solid #d2d2d7;border-radius:12px;min-height:24px"></label>
-          <label style="display:flex;flex-direction:column;gap:6px;font-size:15px;font-weight:500">{{t.fTel}}<input type="tel" style="font-size:17px;padding:12px 14px;border:1px solid #d2d2d7;border-radius:12px;min-height:24px"></label>
-          <label style="display:flex;flex-direction:column;gap:6px;font-size:15px;font-weight:500">{{t.fMsg}}<textarea rows="4" style="font-size:17px;padding:12px 14px;border:1px solid #d2d2d7;border-radius:12px"></textarea></label>
-          <button type="button" class="lift" style="border:0;cursor:pointer;font:inherit;background:{{accent}};color:#ffffff;font-size:18px;font-weight:700;padding:16px 32px;border-radius:999px;min-height:44px">{{t.fSend}}</button>
+          <form method="post" action="contact.php" accept-charset="UTF-8" style="display:flex;flex-direction:column;gap:16px;margin:0">
+          <input type="hidden" name="lang" value="{{t.fLang}}">
+          <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:15px;font-weight:500">{{t.fName}}<input type="text" name="name" required maxlength="100" style="font-size:17px;padding:12px 14px;border:1px solid #d2d2d7;border-radius:12px;min-height:24px"></label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:15px;font-weight:500">{{t.fTel}}<input type="tel" name="phone" required maxlength="40" style="font-size:17px;padding:12px 14px;border:1px solid #d2d2d7;border-radius:12px;min-height:24px"></label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:15px;font-weight:500">{{t.fMsg}}<textarea name="message" rows="4" maxlength="3000" style="font-size:17px;padding:12px 14px;border:1px solid #d2d2d7;border-radius:12px"></textarea></label>
+          <button type="submit" class="lift" style="border:0;cursor:pointer;font:inherit;background:{{accent}};color:#ffffff;font-size:18px;font-weight:700;padding:16px 32px;border-radius:999px;min-height:44px">{{t.fSend}}</button>
+          </form>
           <div style="font-size:14px;color:#6e6e73">{{t.formNote}}</div>
         </div>
       </div>
@@ -1352,7 +1356,8 @@ class Component extends DCLogic {
       fTel: pick('전화번호', 'Phone'),
       fMsg: pick('문의 내용 (견학 희망 날짜를 적어 주세요)', 'Message (include a preferred visit date)'),
       fSend: pick('보내기', 'Send'),
-      formNote: pick('시안이라 아직 전송되지 않습니다. 실제 사이트에서 연결합니다.', 'This is a sample, so the form does not send yet. It will be connected on the live site.')
+      fLang: pick('ko', 'en'),
+      formNote: pick('보내 주신 문의는 센터 이메일로 전달되며, 확인 후 연락드립니다. 급한 일은 전화 주세요.', 'Your message goes to the center by email, and we will contact you. For urgent matters, please call us.')
     };
 
     const S = this.siteNow();
