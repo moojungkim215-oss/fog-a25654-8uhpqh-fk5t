@@ -641,10 +641,15 @@ a.navlink:hover::after{transform:scaleX(1)}
             <sc-if value="{{e.head}}" hint-placeholder-val="{{ false }}">
               <h3 style="grid-column:1/-1;margin:24px 0 0;font-size:26px;font-weight:900;letter-spacing:-0.01em;color:#1d1d1f;border-bottom:2px solid #d3e2f7;padding-bottom:10px">{{e.month}}</h3>
             </sc-if>
-            <div class="reveal lift" style="background:{{e.bg}};border-radius:24px;border:2px solid {{e.bd}};border-top:5px solid {{e.c}};box-shadow:0 10px 26px rgba(37,99,201,0.08);padding:28px 28px;display:flex;flex-direction:column;gap:8px">
-              <div style="font-size:15px;font-weight:700;color:{{e.c}}">{{e.when}}</div>
-              <div style="font-size:21px;font-weight:700">{{e.what}}</div>
-              <div style="font-size:15px;color:#6e6e73">{{e.note}}</div>
+            <div class="reveal lift" style="background:{{e.bg}};border-radius:24px;border:2px solid {{e.bd}};border-top:5px solid {{e.top}};box-shadow:0 10px 26px rgba(37,99,201,0.08);padding:28px 28px {{e.pb}};position:relative;overflow:hidden;word-break:keep-all">
+              <sc-if value="{{e.art}}" hint-placeholder-val="{{ false }}">
+                <img src="images/harvest-thanksgiving.svg" alt="" loading="lazy" style="position:absolute;right:0;bottom:-4px;width:190px;pointer-events:none">
+              </sc-if>
+              <div style="position:relative;display:flex;flex-direction:column;gap:8px">
+                <div style="font-size:15px;font-weight:700;color:{{e.c}}">{{e.when}}</div>
+                <div style="font-size:21px;font-weight:700;color:{{e.tc}}">{{e.what}}</div>
+                <div style="font-size:15px;color:{{e.nc}}">{{e.note}}</div>
+              </div>
             </div>
           </div>
         </sc-for>
@@ -1488,7 +1493,7 @@ class Component extends DCLogic {
       { m_ko: '2026년 11월', m_en: 'November 2026', alert: false, when_ko: '11월 6일 (금)', when_en: 'Nov 6 (Fri)', what_ko: '11월 생일잔치', what_en: 'November Birthday Party', note_ko: '이달에 생신을 맞으신 어르신들을 함께 축하했습니다. 케이크와 노래로 즐거운 시간을 보냈습니다.', note_en: 'We celebrated members with November birthdays together, with cake and songs.' },
       { m_ko: '2026년 11월', m_en: 'November 2026', alert: false, when_ko: '11월 중', when_en: 'This month', what_ko: '어르신 미용 시간', what_en: 'Haircut Day', note_ko: '머리 손질을 받으며 단정하고 산뜻한 기분으로 한 달을 보내셨습니다.', note_en: 'Members enjoyed a haircut and left feeling fresh and neat.' },
       { m_ko: '2026년 11월', m_en: 'November 2026', alert: false, when_ko: '11월 18일 (수)', when_en: 'Nov 18 (Wed)', what_ko: '세미나', what_en: 'Seminar', note_ko: '오전 10:00~10:30. 미선 재활원·호스피스에서 오셔서 미선이 제공하는 서비스와 자격 조건을 안내해 주십니다.', note_en: '10:00-10:30 AM. Misun Rehabilitation Center / Hospice will visit to explain their services and eligibility requirements.' },
-      { m_ko: '2026년 11월', m_en: 'November 2026', alert: false, when_ko: '11월 25일 (수)', when_en: 'Nov 25 (Wed)', what_ko: '추수감사절 점심', what_en: 'Thanksgiving Lunch', note_ko: '추수감사절을 맞아 함께 점심을 나눕니다.', note_en: 'We will share a special Thanksgiving lunch together.' },
+      { m_ko: '2026년 11월', m_en: 'November 2026', alert: false, theme: 'harvest', when_ko: '11월 25일 (수)', when_en: 'Nov 25 (Wed)', what_ko: '추수감사절 점심', what_en: 'Thanksgiving Lunch', note_ko: '추수감사절을 맞아 함께 점심을 나눕니다.', note_en: 'We will share a special Thanksgiving lunch together.' },
       { m_ko: '2026년 11월', m_en: 'November 2026', alert: true, when_ko: '11월 26일 (목)', when_en: 'Nov 26 (Thu)', what_ko: '센터 문 닫음', what_en: 'Center closed', note_ko: '추수감사절로 하루 쉽니다.', note_en: 'Closed for Thanksgiving Day.' },
       { m_ko: '2026년 11월', m_en: 'November 2026', alert: true, when_ko: '11월 27일 (금)', when_en: 'Nov 27 (Fri)', what_ko: '12:40 귀가', what_en: '12:40 PM early dismissal', note_ko: '이날은 낮 12시 40분에 귀가합니다.', note_en: 'Members go home at 12:40 PM this day.' },
       { m_ko: '2026년 12월', m_en: 'December 2026', alert: false, when_ko: '12월 7일 (월)', when_en: 'Dec 7 (Mon)', what_ko: '어르신 미용 시간', what_en: 'Haircut Day', note_ko: '머리 손질을 받으며 단정하게 한 해를 마무리합니다.', note_en: 'Members get a fresh haircut as the year comes to an end.' },
@@ -1505,7 +1510,7 @@ class Component extends DCLogic {
     ];
     const evList = S.events && S.events.length ? S.events : (S.events ? [] : evSeed);
     let prevM = null;
-    const events = evList.map((x, i) => { const m = x['m_' + lg] || x.m_ko || ''; const head = !!m && m !== prevM; if (m) prevM = m; const al = !!x.alert; return { head, month: m, c: al ? '#d93025' : ['#2563c9', '#1f9d6b', '#e08a1e'][i % 3], bg: al ? '#fff4f2' : '#ffffff', bd: al ? '#f5c6c0' : '#d3e2f7', when: x['when_' + lg] || x.when_ko || '', what: x['what_' + lg] || x.what_ko || '', note: x['note_' + lg] || x.note_ko || '' }; });
+    const events = evList.map((x, i) => { const m = x['m_' + lg] || x.m_ko || ''; const head = !!m && m !== prevM; if (m) prevM = m; const al = !!x.alert; const hv = x.theme === 'harvest'; return { head, month: m, art: hv, c: hv ? '#b5582a' : al ? '#d93025' : ['#2563c9', '#1f9d6b', '#e08a1e'][i % 3], top: hv ? '#c8692e' : al ? '#d93025' : ['#2563c9', '#1f9d6b', '#e08a1e'][i % 3], bg: hv ? 'linear-gradient(160deg,#fffaf1 0%,#fdf0dc 100%)' : al ? '#fff4f2' : '#ffffff', bd: hv ? '#f0d9b5' : al ? '#f5c6c0' : '#d3e2f7', pb: hv ? '110px' : '28px', tc: hv ? '#3b2a1a' : '#1d1d1f', nc: hv ? '#6b5847' : '#6e6e73', when: x['when_' + lg] || x.when_ko || '', what: x['what_' + lg] || x.what_ko || '', note: x['note_' + lg] || x.note_ko || '' }; });
 
     const faqSource = [
       { q: pick('메디케이드가 없어도 이용할 수 있나요?', 'Can I join without Medicaid?'), a: pick('메디케이드와 SSI 수혜자는 본인 부담금 없이 정부 지원으로 이용하십니다. 그 외의 경우 가능한 혜택이 있는지 신속하고 정확하게 알아봐 드리니 먼저 문의해 주세요.', 'Medicaid and SSI recipients attend with no out-of-pocket cost. For everyone else, we will check what benefits may be available, so please contact us first.') },
